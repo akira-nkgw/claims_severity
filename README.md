@@ -1,5 +1,4 @@
-#Allstate Claims Severity
-How severe is an insurance claim?
+# Allstate Claims Severity- Kaggle Challange
 
 ## Introduction
 This project is to developing automated methods of predicting the cost, and hence severity, of claims. And this is proposed by AllState, an insurance company.
