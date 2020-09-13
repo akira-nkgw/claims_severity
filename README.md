@@ -31,6 +31,8 @@ I decided to simply delete the missing value because I suspect probably only one
 - For this project, because all the variables have no meaning in their name, and each categorical variable are encrypted into single alphabets like (A, B, C, D.. and so on), I will not be able to dig up the meaning of the dataset much. Therefore, I decided the focus on this project's EDA to be more statistical tests. 
 - I noticed that the distribution for the target variable 'loss' is not normally distributed and has exceptionally large outliers as you can see the graph below.
 
+![loss_bar](https://github.com/akira-nkgw/claims_severity/blob/master/images/loss_bar.png)
+
 - Please refer the details for EDA in the file <b>[EDA_claims_severity.ipynb](https://github.com/akira-nkgw/claims_severity/blob/master/EDA_claims_severity.ipynb)</b>
 
 
