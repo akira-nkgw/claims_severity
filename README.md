@@ -43,4 +43,5 @@ I decided to simply delete the missing value because I suspect probably only one
 
 ### Numerical variables
 - I chekced any continous variables if it is correlated to amount of 'loss'.
-
+- When you look at the correlation table for loss, cont2, cont3, cont7 are more corelated which is at more than 0.10 correlation rate.
+![corr](https://github.com/akira-nkgw/claims_severity/blob/master/images/corr.png)
