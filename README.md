@@ -8,16 +8,20 @@ immediate help will be able to be paid. <br> <br>
 
 ## Data Source
 I got this data source from Kaggle.<br> https://www.kaggle.com/c/allstate-claims-severity/   <br>
-Each row in this dataset represents an insurance claim. You must predict the value for the 'loss' column. Variables prefaced with 'cat' are categorical, while those prefaced with 'cont' are continuous.
+Each row in this dataset represents an insurance claim. You must predict the value for the 'loss' column. Variables prefaced with 'cat' are categorical, while those prefaced with 'cont' are continuous. <br>
+There is no data dictionary for this dataset.
 
 ## Technology I use
 - Python 3.7.3
 - Pandas
 - scipy
-- statsmodels
 - EDA
   - matplotlib
   - seaborn
+- Modelling
+  - statsmodels - Linear Regression
+  - Scikit Learn - Random Forest Regressor, Gradient Boosting Regressor, Multi-Layer Perception Regressor
+  - skopt - hyperparameter tuning 
 
 
 ## Data Cleansing - missing value handling
@@ -47,7 +51,56 @@ I decided to simply delete the missing value because I suspect probably only one
 ![corr](https://github.com/akira-nkgw/claims_severity/blob/master/images/corr.png)
 
 ## Model Building
-### Linear Model
+- Please refer to the Model bulding file for more details <b>[models_claims_severe.ipynb](https://github.com/akira-nkgw/claims_severity/blob/master/models_claims_severe.ipynb)</b>
+- Dataset ratio: 80% training, 20% testing
+- 150,654 records for training, 37,663 records for testing
+- I used Linear Regression, Random Forest, Gradient Boosting, and Neural Networks to predict the loss.
 
-### 
+### Linear Regression Model (OLS)
+- I used it as a bench mark score for the entire modeling. 
+- The score was 1304.912
+- It is not a bad score considering Linear Regression is not a complicated model unlike other ML models.
+- Linear model is fitting to the training model well and you can see from the Adjusted R-squared:	0.528. 
+- You can see that all three continuous variables are statistically significant at the 1% level and all of them have possitive impact on the loss.
+  - cont2: the loss value is predicted to increases by $1353.13 for every one unit increase in cont2
+  - cont3: the loss value is predicted to increases by $617.42 for every one unit increase in cont3
+  - cont7: the loss value is predicted to increases by $684.00 for every one unit increase in cont7
 
+
+### Random Forest Regressor
+- The random forest is a model made up of many decision trees.
+  - Random sampling of training data points when building trees
+  - Random subsets of features considered when splitting nodes
+  - The Random Forest is to not rely on any one individual tree, but pool the votes of each tree.
+- The best score is 1244.31
+- Important features are in the order of cat80, cont7, cont2, cat79, cat57.
+
+![rf_importance](https://github.com/akira-nkgw/claims_severity/blob/master/images/rf_importance.png)
+
+
+### Gradient Boosting Regressor
+- I used the hyperparameter estimation for Gradient Boosting algorithm since this algorithm can be difficult to tune the model to not to be overfit. 
+- The best score is 1214.5313
+- Important features I've got from the GB model are cat80, cat79, cont7, cont2, cat12 as in the image below.
+
+![gb_importance](https://github.com/akira-nkgw/claims_severity/blob/master/images/rf_importance.png)
+
+### Neural Networks (Multi-layer Perception Regressor)
+- The best score is 1193.08
+- Contains only one layer with 80 neurons
+- When extra neurons or layers are added, the mean absolute error gets bigger because of overfitting.
+- The NN model with the best score has hyperparameters as below.
+
+![nn_hyperparameter](https://github.com/akira-nkgw/claims_severity/blob/master/images/nn_hyperparameter.png)
+
+## Summary
+- Neural Networks worked the best among other ML algorithms for this problem and dataset.
+- The most accurate Neural Networks model would have 1193.08 as the mean absolute error. This result means that the model's prediction would have error of $1193.08 dollars for each claim on average. 
+- It would be interesting to see if there is casal relationship on some variables that were important features for Random Forest, Gradient Boosting and Linear Regression such as
+  - continuous variables: cont2 and cont7  
+  - categorical variables: cat12, cat57, cat79, cat80
+- Those variables may have strong critical point for the insured to have higher loss in their accident.
+- For the futher improvement for prediction, it would be nice to have a data dictionary for the dataset. If I have a data dictionary, it would be easier to understand the problem and feature engineering will be feasible to do as well.  
+
+Feel free to contact me if you have any questions! <br>
+Akira
